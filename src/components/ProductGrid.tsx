@@ -9,32 +9,50 @@ type Product = {
   imageUrl: string
 }
 
+type StrapiProduct = {
+  id: number
+  attributes: {
+    title: string
+    slug: string
+    price: number
+    image?: {
+      data?: {
+        attributes?: {
+          url: string
+        }
+      }
+    }
+  }
+}
+
+type StrapiResponse = {
+  data: StrapiProduct[]
+}
+
 async function getProducts(): Promise<Product[]> {
   const res = await fetch('http://localhost:1337/api/products?populate=*', {
     cache: 'no-store',
   })
 
-  const data = await res.json()
+  const data: StrapiResponse = await res.json()
 
-  console.log('[STRAPI RESPONSE]', JSON.stringify(data, null, 2)) // 🪵 Log here
+  console.log('[STRAPI RESPONSE]', JSON.stringify(data, null, 2))
 
   if (!data || !Array.isArray(data.data)) return []
 
-  return data.data
-    .filter((item: any) => item.attributes)
-    .map((item: any) => {
-      const attrs = item.attributes
+  return data.data.map((item) => {
+    const attrs = item.attributes
 
-      return {
-        id: item.id,
-        name: attrs.title || 'Untitled Product',
-        slug: attrs.slug || `product-${item.id}`,
-        price: `R${(attrs.price || 0).toLocaleString('en-ZA')}`,
-        imageUrl: attrs.image?.data?.attributes?.url
-          ? `http://localhost:1337${attrs.image.data.attributes.url}`
-          : '/images/default.jpg',
-      }
-    })
+    return {
+      id: item.id,
+      name: attrs.title || 'Untitled Product',
+      slug: attrs.slug || `product-${item.id}`,
+      price: `R${(attrs.price || 0).toLocaleString('en-ZA')}`,
+      imageUrl: attrs.image?.data?.attributes?.url
+        ? `http://localhost:1337${attrs.image.data.attributes.url}`
+        : '/images/default.jpg',
+    }
+  })
 }
 
 export default async function ProductGrid() {

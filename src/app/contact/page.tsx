@@ -1,8 +1,6 @@
 'use client';
 
 import Navbar from '@/components/Navbar';
-import Image from 'next/image';
-import Link from 'next/link';
 import Footer from '@/components/Footer';
 import ContactForm from './ContactForm';
 

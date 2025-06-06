@@ -6,10 +6,15 @@
 import { useState } from 'react'
 import { buildQuote } from '../app/lib/quoteBuilder'
 
+type QuoteResult = {
+  components: { name: string; price: number }[]
+  total: number
+}
+
 export default function QuoteForm() {
   const [budget, setBudget] = useState<number>(0)
   const [useCase, setUseCase] = useState('gaming')
-  const [result, setResult] = useState<any | null>(null)
+  const [result, setResult] = useState<QuoteResult | null>(null)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -51,7 +56,7 @@ export default function QuoteForm() {
         <div className="mt-6 bg-gray-800 p-4 rounded text-white">
           <h2 className="text-xl font-bold mb-2">Recommended Build</h2>
           <ul className="list-disc ml-5">
-            {result.components.map((item: any, index: number) => (
+            {result.components.map((item, index) => (
               <li key={index}>{item.name} – R{item.price}</li>
             ))}
           </ul>
