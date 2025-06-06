@@ -1,16 +1,32 @@
-'use client'
+'use client';
 
-import { useEffect, useState } from 'react'
-import ProductCard from '@/components/ProductCard'
+import { useEffect, useState } from 'react';
+import ProductCard from '@/components/ProductCard';
+
+interface StrapiProduct {
+  id: number;
+  attributes: {
+    title: string;
+    slug: string;
+    price: number;
+    category: string;
+    image?: {
+      data?: {
+        attributes?: {
+          url: string;
+        };
+      };
+    };
+  };
+}
 
 interface Product {
-  id: number
-  name: string
-  price: number
-  description: string
-  slug: string
-  category: string
-  image: { url: string }[]
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  category: string;
+  imageUrl: string;
 }
 
 const categories = [
@@ -22,21 +38,44 @@ const categories = [
   { value: 'monitors', label: 'Monitors' },
   { value: 'peripherals', label: 'Peripherals' },
   { value: 'wireless_internet', label: 'Wireless Internet' },
-]
+];
 
 export default function FilterableProductGrid() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [category, setCategory] = useState('all')
+  const [products, setProducts] = useState<Product[]>([]);
+  const [category, setCategory] = useState('all');
 
   useEffect(() => {
-    fetch('http://localhost:1337/api/products?populate=image')
-      .then(res => res.json())
-      .then(data => setProducts(data.data))
-  }, [])
+    const fetchProducts = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?populate=image`);
+      const json = await res.json();
+
+      const data = json.data as StrapiProduct[];
+
+      const mappedProducts: Product[] = data.map((item) => {
+        const attrs = item.attributes;
+        const imageUrl = attrs.image?.data?.attributes?.url
+          ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${attrs.image.data.attributes.url}`
+          : '/images/default.jpg';
+
+        return {
+          id: item.id,
+          name: attrs.title,
+          slug: attrs.slug,
+          price: attrs.price,
+          category: attrs.category || 'uncategorized',
+          imageUrl,
+        };
+      });
+
+      setProducts(mappedProducts);
+    };
+
+    fetchProducts();
+  }, []);
 
   const filtered = category === 'all'
     ? products
-    : products.filter(p => p.category === category)
+    : products.filter((p) => p.category === category);
 
   return (
     <>
@@ -48,7 +87,7 @@ export default function FilterableProductGrid() {
           onChange={(e) => setCategory(e.target.value)}
           className="text-black p-2 rounded"
         >
-          {categories.map(c => (
+          {categories.map((c) => (
             <option key={c.value} value={c.value}>
               {c.label}
             </option>
@@ -63,5 +102,5 @@ export default function FilterableProductGrid() {
         ))}
       </div>
     </>
-  )
+  );
 }

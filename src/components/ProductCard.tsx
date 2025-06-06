@@ -10,18 +10,16 @@ interface Product {
   name: string;
   price: number;
   slug: string;
-  image: { url: string }[];
+  imageUrl: string;
 }
 
 export default function ProductCard({ product }: { product: Product }) {
-  const imageUrl = product.image?.[0]?.url;
-
   return (
     <Link href={`/shop/${product.slug}`}>
       <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
-        {imageUrl && (
+        {product.imageUrl && (
           <Image
-            src={`http://localhost:1337${imageUrl}`}
+            src={product.imageUrl}
             alt={product.name}
             width={400}
             height={300}
