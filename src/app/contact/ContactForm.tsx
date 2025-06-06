@@ -25,46 +25,53 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium mb-1">
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
           Name
         </label>
         <input
           type="text"
+          id="name"
           name="name"
           required
-          className="w-full border border-gray-300 rounded-lg px-4 py-2"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
         />
       </div>
+
       <div>
-        <label htmlFor="email" className="block text-sm font-medium mb-1">
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
           Email
         </label>
         <input
           type="email"
+          id="email"
           name="email"
           required
-          className="w-full border border-gray-300 rounded-lg px-4 py-2"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
         />
       </div>
+
       <div>
-        <label htmlFor="message" className="block text-sm font-medium mb-1">
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
           Message
         </label>
         <textarea
+          id="message"
           name="message"
           rows={5}
           required
-          className="w-full border border-gray-300 rounded-lg px-4 py-2"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
         />
       </div>
+
       <button
         type="submit"
         className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg text-sm transition"
       >
         Send Message
       </button>
+
       {status && <p className="text-green-600 text-sm mt-4">{status}</p>}
     </form>
   )
