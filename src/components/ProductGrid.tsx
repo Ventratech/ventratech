@@ -1,53 +1,55 @@
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Link from 'next/link';
 
 type Product = {
-  id: number
-  name: string
-  slug: string
-  price: string
-  imageUrl: string
-}
+  id: number;
+  name: string;
+  slug: string;
+  price: string;
+  imageUrl: string;
+};
 
 type StrapiProduct = {
-  id: number
+  id: number;
   attributes: {
-    title: string
-    slug: string
-    price: number
+    title: string;
+    slug: string;
+    price: number;
     image?: {
       data?: {
         attributes?: {
-          url: string
-        }
-      }
-    }
-  }
-}
+          url: string;
+        };
+      };
+    };
+  };
+};
 
 type StrapiResponse = {
-  data: StrapiProduct[]
-}
+  data: StrapiProduct[];
+};
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+// ✅ Corrected Strapi Cloud URL logic
+const STRAPI_URL =
+  process.env.NEXT_PUBLIC_STRAPI_URL || 'https://striking-power-0810802d17.strapiapp.com';
 
 async function getProducts(): Promise<Product[]> {
   try {
     const res = await fetch(`${STRAPI_URL}/api/products?populate=*`, {
       cache: 'no-store',
-    })
+    });
 
     if (!res.ok) {
-      console.error('[STRAPI ERROR]', res.statusText)
-      return []
+      console.error('[STRAPI ERROR]', res.statusText);
+      return [];
     }
 
-    const data: StrapiResponse = await res.json()
+    const data: StrapiResponse = await res.json();
 
-    if (!data || !Array.isArray(data.data)) return []
+    if (!data || !Array.isArray(data.data)) return [];
 
     return data.data.map((item) => {
-      const attrs = item.attributes
+      const attrs = item.attributes;
 
       return {
         id: item.id,
@@ -57,16 +59,16 @@ async function getProducts(): Promise<Product[]> {
         imageUrl: attrs.image?.data?.attributes?.url
           ? `${STRAPI_URL}${attrs.image.data.attributes.url}`
           : '/images/default.jpg',
-      }
-    })
+      };
+    });
   } catch (error) {
-    console.error('[PRODUCT FETCH FAILED]', error)
-    return []
+    console.error('[PRODUCT FETCH FAILED]', error);
+    return [];
   }
 }
 
 export default async function ProductGrid() {
-  const products = await getProducts()
+  const products = await getProducts();
 
   return (
     <section className="bg-light py-16 px-6">
@@ -102,5 +104,5 @@ export default async function ProductGrid() {
         </div>
       )}
     </section>
-  )
+  );
 }
