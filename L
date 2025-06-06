@@ -1,0 +1,11 @@
+Copyright (c) 2025 Ventratech (Pty) Ltd
+
+All rights reserved.
+
+This source code and any associated files are the exclusive property of Ventratech (Pty) Ltd.
+
+You may not copy, modify, distribute, sublicense, or use this software or any portion of it without explicit written permission from Ventratech.
+
+Unauthorized use is strictly prohibited and may result in legal action.
+
+For inquiries, contact: info@ventratech.co.za
