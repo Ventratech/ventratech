@@ -10,7 +10,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: '**', // Allow Strapi or other remote sources later (e.g., production Strapi)
+        hostname: 'striking-power-0810802d17.strapiapp.com',
       },
     ],
   },
