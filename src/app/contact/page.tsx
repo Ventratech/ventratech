@@ -13,7 +13,9 @@ export default function ContactPage() {
       <section className="bg-primary text-white py-10 text-center">
         <div className="max-w-3xl mx-auto px-1">
           <h3 className="text-3xl font-bold mb-1">Contact Us</h3>
-          <p className="text-lg">Have a question, request, or custom build in mind? We're here to help.</p>
+          <p className="text-lg">
+            Have a question, request, or custom build in mind? We&#39;re here to help.
+          </p>
         </div>
       </section>
 
