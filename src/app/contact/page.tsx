@@ -1,33 +1,78 @@
-'use client';
+'use client'
 
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import ContactForm from './ContactForm';
+import { useState } from 'react'
 
-export default function ContactPage() {
+export default function ContactForm() {
+  const [status, setStatus] = useState('')
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.currentTarget
+    const data = new FormData(form)
+
+    const response = await fetch('https://formspree.io/f/xjkrkrbw', {
+      method: 'POST',
+      body: data,
+      headers: { Accept: 'application/json' },
+    })
+
+    if (response.ok) {
+      setStatus('Your message has been sent successfully.')
+      form.reset()
+    } else {
+      setStatus('There was a problem submitting your message.')
+    }
+  }
+
   return (
-    <>
-      <Navbar />
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+          Name
+        </label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          className="text-black w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
 
-      {/* Header Banner */}
-      <section className="bg-primary text-white py-12 text-center">
-        <div className="max-w-3xl mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2">Contact Us</h1>
-          <p className="text-lg">
-            Have a question, request, or custom build in mind? We&#39;re here to help.
-          </p>
-        </div>
-      </section>
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          className="text-black w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
 
-      {/* Contact Form */}
-      <section className="bg-light py-20 px-4">
-        <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8 md:p-10">
-          <h2 className="text-2xl font-bold mb-6 text-center">Send Us a Message</h2>
-          <ContactForm />
-        </div>
-      </section>
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+          Message
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows={5}
+          required
+          className="text-black w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+        />
+      </div>
 
-      <Footer />
-    </>
-  );
+      <button
+        type="submit"
+        className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg text-sm transition"
+      >
+        Send Message
+      </button>
+
+      {status && <p className="text-green-600 text-sm mt-4">{status}</p>}
+    </form>
+  )
 }

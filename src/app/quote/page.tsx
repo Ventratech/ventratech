@@ -6,6 +6,7 @@ import QuoteForm from '@/components/QuoteForm'
 export default function QuotePage() {
   const [accessGranted, setAccessGranted] = useState(false)
   const [inputPassword, setInputPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     const access = localStorage.getItem('ventrabot-access')
@@ -19,23 +20,31 @@ export default function QuotePage() {
     if (inputPassword === 'Ventratech2025') {
       localStorage.setItem('ventrabot-access', 'granted')
       setAccessGranted(true)
+      setErrorMessage('')
     } else {
-      alert('Incorrect password')
+      setErrorMessage('Incorrect password. Please try again.')
     }
   }
 
   if (!accessGranted) {
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center bg-dark text-white">
+      <main className="min-h-screen flex flex-col items-center justify-center bg-dark text-white px-4">
         <h1 className="text-2xl font-bold mb-4">Enter Password</h1>
-        <form onSubmit={handlePasswordSubmit} className="bg-gray-800 p-4 rounded shadow">
+        <form
+          onSubmit={handlePasswordSubmit}
+          className="bg-gray-800 p-6 rounded shadow w-full max-w-sm"
+        >
           <input
             type="password"
             value={inputPassword}
             onChange={(e) => setInputPassword(e.target.value)}
-            className="p-2 border rounded text-black mb-2 w-full"
+            className="p-2 border rounded text-black mb-3 w-full"
             placeholder="Enter password"
+            required
           />
+          {errorMessage && (
+            <p className="text-red-400 text-sm mb-2">{errorMessage}</p>
+          )}
           <button
             type="submit"
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full"
@@ -48,7 +57,7 @@ export default function QuotePage() {
   }
 
   return (
-    <main className="max-w-2xl mx-auto py-10 text-center">
+    <main className="max-w-2xl mx-auto py-10 text-center px-4">
       <h1
         className="text-5xl font-extrabold mb-6 text-cyan-400 drop-shadow-lg tracking-widest"
         style={{ fontFamily: "'Orbitron', sans-serif" }}

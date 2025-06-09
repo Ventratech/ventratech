@@ -4,7 +4,6 @@
 'use client'
 
 import { useState } from 'react'
-import { buildQuote } from '../app/lib/quoteBuilder'
 
 type QuoteResult = {
   components: { name: string; price: number }[]
@@ -15,11 +14,21 @@ export default function QuoteForm() {
   const [budget, setBudget] = useState<number>(0)
   const [useCase, setUseCase] = useState('gaming')
   const [result, setResult] = useState<QuoteResult | null>(null)
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const quote = buildQuote(budget, useCase)
-    setResult(quote)
+    setLoading(true)
+    try {
+      const res = await fetch(`https://ventrabot-api.onrender.com/quote?useCase=${useCase}`)
+      if (!res.ok) throw new Error('Failed to fetch quote')
+      const data = await res.json()
+      setResult(data)
+    } catch (error) {
+      console.error('Error fetching quote:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -48,8 +57,12 @@ export default function QuoteForm() {
         </select>
       </div>
 
-      <button type="submit" className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">
-        Generate Quote
+      <button
+        type="submit"
+        className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+        disabled={loading}
+      >
+        {loading ? 'Generating...' : 'Generate Quote'}
       </button>
 
       {result && (
