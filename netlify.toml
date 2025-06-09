@@ -4,3 +4,9 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[[redirects]]
+  from = "www.ventratech.co.za/*"
+  to = "https://ventratech.co.za/:splat"
+  status = 301
+  force = true
