@@ -1,78 +1,58 @@
 'use client'
 
-import { useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import Footer from '@/components/Footer'
+import ContactForm from './ContactForm'
 
-export default function ContactForm() {
-  const [status, setStatus] = useState('')
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const form = e.currentTarget
-    const data = new FormData(form)
-
-    const response = await fetch('https://formspree.io/f/xjkrkrbw', {
-      method: 'POST',
-      body: data,
-      headers: { Accept: 'application/json' },
-    })
-
-    if (response.ok) {
-      setStatus('Your message has been sent successfully.')
-      form.reset()
-    } else {
-      setStatus('There was a problem submitting your message.')
-    }
-  }
-
+export default function ContactPage() {
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-          Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          className="text-black w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-      </div>
+    <>
+      {/* Navigation */}
+      <header className="bg-white border-b">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/">
+            <Image
+              src="/images/logo.png"
+              alt="Ventratech Logo"
+              width={140}
+              height={40}
+              className="h-auto w-auto"
+            />
+          </Link>
+          <nav className="space-x-6 text-sm font-medium text-gray-700">
+            <Link href="/" className="hover:text-blue-600">
+              Home
+            </Link>
+            <Link href="/shop" className="hover:text-blue-600">
+              Shop
+            </Link>
+            <Link href="/contact" className="text-blue-600 font-semibold">
+              Contact
+            </Link>
+          </nav>
+        </div>
+      </header>
 
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-          Email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className="text-black w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-      </div>
+      {/* Banner */}
+      <section className="bg-[#06182F] text-white py-12 text-center">
+        <div className="max-w-3xl mx-auto px-4">
+          <h3 className="text-4xl font-bold mb-2">Contact Us</h3>
+          <p className="text-lg max-w-xl mx-auto">
+            Have a question, request, or custom build in mind? We're here to help.
+          </p>
+        </div>
+      </section>
 
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-          Message
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={5}
-          required
-          className="text-black w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-        />
-      </div>
+      {/* Contact Form Section */}
+      <section className="bg-[#F4F6F8] py-20 px-4">
+        <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8">
+          <h2 className="text-2xl font-bold mb-8 text-center">Send Us a Message</h2>
+          <ContactForm />
+        </div>
+      </section>
 
-      <button
-        type="submit"
-        className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg text-sm transition"
-      >
-        Send Message
-      </button>
-
-      {status && <p className="text-green-600 text-sm mt-4">{status}</p>}
-    </form>
+      <Footer />
+    </>
   )
 }

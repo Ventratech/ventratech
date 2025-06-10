@@ -17,15 +17,19 @@ export default function ContactForm() {
     })
 
     if (response.ok) {
-      setStatus('Your message has been sent successfully.')
+      setStatus('success')
       form.reset()
     } else {
-      setStatus('There was a problem submitting your message.')
+      setStatus('error')
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-md mx-auto bg-white p-6 rounded-lg shadow space-y-6"
+      noValidate
+    >
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
           Name
@@ -35,7 +39,7 @@ export default function ContactForm() {
           id="name"
           name="name"
           required
-          className="text-black w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-600"
         />
       </div>
 
@@ -48,7 +52,7 @@ export default function ContactForm() {
           id="email"
           name="email"
           required
-          className="text-black w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-600"
         />
       </div>
 
@@ -61,18 +65,29 @@ export default function ContactForm() {
           name="message"
           rows={5}
           required
-          className="text-black w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
+          className="w-full border border-gray-300 rounded-lg px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-600 resize-none"
         />
       </div>
 
-      <button
-        type="submit"
-        className="bg-blue-600 text-white hover:bg-blue-700 px-6 py-2 rounded-lg text-sm transition"
-      >
-        Send Message
-      </button>
+      <div className="flex justify-center">
+        <button
+          type="submit"
+          className="bg-blue-600 text-white hover:bg-blue-700 px-8 py-3 rounded-lg text-sm font-semibold transition"
+        >
+          Send Message
+        </button>
+      </div>
 
-      {status && <p className="text-green-600 text-sm mt-4">{status}</p>}
+      {status === 'success' && (
+        <p className="text-green-600 text-center text-sm mt-4">
+          Your message has been sent successfully.
+        </p>
+      )}
+      {status === 'error' && (
+        <p className="text-red-600 text-center text-sm mt-4">
+          There was a problem submitting your message.
+        </p>
+      )}
     </form>
   )
 }
