@@ -10,9 +10,9 @@ export default function ContactPage() {
       <Navbar />
 
       {/* Banner */}
-      <section className="bg-[#06182F] text-white py-12 text-center">
+      <section className="bg-white text-[#06182F] py-12 text-center">
         <div className="max-w-3xl mx-auto px-4">
-          <h3 className="text-4xl font-bold mb-2">Contact Us</h3>
+          <h3 className="text-2xl font-bold mb-1">Contact Us</h3>
           <p className="text-lg max-w-xl mx-auto">
             Have a question, request, or custom build in mind? We&apos;re here to help.
           </p>
