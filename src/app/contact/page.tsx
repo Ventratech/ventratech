@@ -39,7 +39,7 @@ export default function ContactPage() {
         <div className="max-w-3xl mx-auto px-4">
           <h3 className="text-4xl font-bold mb-2">Contact Us</h3>
           <p className="text-lg max-w-xl mx-auto">
-            Have a question, request, or custom build in mind? We're here to help.
+            Have a question, request, or custom build in mind? We&apos;re here to help.
           </p>
         </div>
       </section>
