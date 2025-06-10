@@ -1,15 +1,23 @@
+// next.config.ts
 import type { NextConfig } from 'next';
+import withPWA from 'next-pwa';
 
-const nextConfig: NextConfig = {
+const baseConfig: NextConfig = {
   output: 'standalone',
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'striking-power-0810802d17.strapiapp.com',
+        hostname: 'ventratech-cms.onrender.com', // updated Strapi host
       },
     ],
   },
 };
 
-export default nextConfig;
+export default withPWA({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+  ...baseConfig,
+});
