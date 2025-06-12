@@ -1,8 +1,8 @@
 import type { NextConfig } from 'next';
-import withPWA from 'next-pwa';
 
-const baseConfig: NextConfig = {
+const nextConfig: NextConfig = {
   output: 'standalone',
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
@@ -13,11 +13,4 @@ const baseConfig: NextConfig = {
   },
 };
 
-export default withPWA({
-  dest: 'public',
-  swDest: 'public/sw.js',  // <-- here, in withPWA options
-  register: true,
-  skipWaiting: true,
-  disable: process.env.NODE_ENV === 'development',
-  ...baseConfig,
-});
+export default nextConfig;
