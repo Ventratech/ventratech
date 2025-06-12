@@ -1,7 +1,7 @@
 [build]
   command = "npm run build"
-  publish = "."
-  environment = { NEXT_PUBLIC_STRAPI_URL = "your_api_url" }
+  
+  environment = { NEXT_PUBLIC_STRAPI_URL = "https://trusty-chicken-b252799906.strapiapp.com" }
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
