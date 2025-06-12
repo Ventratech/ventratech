@@ -1,8 +1,8 @@
 // components/ProductGrid.tsx
 import ProductCard from './ProductCard';
-import { Product } from '../types/product'; // ✅ shared type
+import { Product } from '../types/product';
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://your-strapi-url.com';
+const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://trusty-chicken-b252799906.strapiapp.com';
 
 type ProductFromStrapi = {
   id: number;
@@ -10,6 +10,7 @@ type ProductFromStrapi = {
     title?: string;
     slug?: string;
     price?: number;
+    category?: string;
     image?: {
       data?: {
         attributes?: {
@@ -21,8 +22,13 @@ type ProductFromStrapi = {
 };
 
 async function getProducts(): Promise<Product[]> {
-  const res = await fetch(`${STRAPI_URL}/api/products?populate=*`, { cache: 'no-store' });
-  if (!res.ok) return [];
+  // Fetch from Strapi API with image population
+  const res = await fetch(`${STRAPI_URL}/api/products?populate=image`);
+
+  if (!res.ok) {
+    console.error('Failed to fetch products:', res.statusText);
+    return [];
+  }
 
   const json = await res.json();
 
@@ -32,7 +38,8 @@ async function getProducts(): Promise<Product[]> {
       id: item.id,
       name: attrs.title || 'Untitled',
       slug: attrs.slug || `product-${item.id}`,
-      price: attrs.price || 0, // ✅ raw number
+      price: attrs.price || 0,
+      category: attrs.category || 'uncategorized',
       imageUrl: attrs.image?.data?.attributes?.url
         ? `${STRAPI_URL}${attrs.image.data.attributes.url}`
         : '/images/default.jpg',

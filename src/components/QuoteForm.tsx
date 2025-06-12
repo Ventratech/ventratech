@@ -20,7 +20,7 @@ export default function QuoteForm() {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetch(`https://ventrabot-api.onrender.com/quote?useCase=${useCase}`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/quote?useCase=${useCase}`);
       if (!res.ok) throw new Error('Failed to fetch quote')
       const data = await res.json()
       setResult(data)

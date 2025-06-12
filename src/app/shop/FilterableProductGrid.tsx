@@ -49,16 +49,19 @@ export default function FilterableProductGrid() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?populate=image`);
-        if (!res.ok) throw new Error('Failed to fetch products');
-        const json = await res.json();
+        const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+        if (!STRAPI_URL) throw new Error('Missing Strapi URL');
 
+        const res = await fetch(`${STRAPI_URL}/api/products?populate=image`);
+        if (!res.ok) throw new Error('Failed to fetch products');
+
+        const json = await res.json();
         const data = json.data as StrapiProduct[];
 
         const mappedProducts: Product[] = data.map((item) => {
           const attrs = item.attributes;
           const imageUrl = attrs.image?.data?.attributes?.url
-            ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${attrs.image.data.attributes.url}`
+            ? `${STRAPI_URL}${attrs.image.data.attributes.url}`
             : '/images/default.jpg';
 
           return {

@@ -1,7 +1,7 @@
 export async function getProduct(slug: string) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_STRAPI_API_URL}/api/products?filters[slug][$eq]=${slug}&populate=*`
+  `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?filters[slug][$eq]=${slug}&populate=*`
     );
 
     if (!res.ok) throw new Error(`Failed to fetch product: ${res.status}`);

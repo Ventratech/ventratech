@@ -3,7 +3,7 @@
 
 export async function buildQuote(budget: number, useCase: string) {
   try {
-    const res = await fetch(`https://ventrabot-api.onrender.com/quote?useCase=${useCase}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/quote?useCase=${useCase}`);
     if (!res.ok) {
       throw new Error(`API error: ${res.status}`);
     }

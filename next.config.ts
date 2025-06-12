@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'ventratech-cms.onrender.com',
+        hostname: 'trusty-chicken-b252799906.strapiapp.com',
       },
     ],
   },
