@@ -73,8 +73,12 @@ export default function FilterableProductGrid() {
 
         setProducts(mappedProducts);
         setError(null);
-      } catch (err: any) {
-        setError(err.message || 'An unknown error occurred');
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('An unknown error occurred');
+        }
       } finally {
         setLoading(false);
       }

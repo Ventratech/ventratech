@@ -4,12 +4,29 @@ import { Product } from '../types/product'; // ✅ shared type
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://your-strapi-url.com';
 
+type ProductFromStrapi = {
+  id: number;
+  attributes: {
+    title?: string;
+    slug?: string;
+    price?: number;
+    image?: {
+      data?: {
+        attributes?: {
+          url?: string;
+        };
+      };
+    };
+  };
+};
+
 async function getProducts(): Promise<Product[]> {
   const res = await fetch(`${STRAPI_URL}/api/products?populate=*`, { cache: 'no-store' });
   if (!res.ok) return [];
 
   const json = await res.json();
-  return json.data.map((item: any) => {
+
+  return json.data.map((item: ProductFromStrapi) => {
     const attrs = item.attributes;
     return {
       id: item.id,
