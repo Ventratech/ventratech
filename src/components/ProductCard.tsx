@@ -1,17 +1,9 @@
 // components/ProductCard.tsx
-
 'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  slug: string;
-  imageUrl: string;
-}
+import { Product } from '../types/product'; // ✅ shared type
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
@@ -28,7 +20,9 @@ export default function ProductCard({ product }: { product: Product }) {
         )}
         <div className="p-4">
           <h2 className="text-xl font-semibold text-gray-800">{product.name}</h2>
-          <p className="text-blue-600 font-bold text-lg">R {product.price}</p>
+          <p className="text-blue-600 font-bold text-lg">
+            R {product.price.toLocaleString('en-ZA')}
+          </p>
         </div>
       </div>
     </Link>

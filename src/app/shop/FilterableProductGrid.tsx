@@ -43,31 +43,41 @@ const categories = [
 export default function FilterableProductGrid() {
   const [products, setProducts] = useState<Product[]>([]);
   const [category, setCategory] = useState('all');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?populate=image`);
-      const json = await res.json();
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?populate=image`);
+        if (!res.ok) throw new Error('Failed to fetch products');
+        const json = await res.json();
 
-      const data = json.data as StrapiProduct[];
+        const data = json.data as StrapiProduct[];
 
-      const mappedProducts: Product[] = data.map((item) => {
-        const attrs = item.attributes;
-        const imageUrl = attrs.image?.data?.attributes?.url
-          ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${attrs.image.data.attributes.url}`
-          : '/images/default.jpg';
+        const mappedProducts: Product[] = data.map((item) => {
+          const attrs = item.attributes;
+          const imageUrl = attrs.image?.data?.attributes?.url
+            ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${attrs.image.data.attributes.url}`
+            : '/images/default.jpg';
 
-        return {
-          id: item.id,
-          name: attrs.title,
-          slug: attrs.slug,
-          price: attrs.price,
-          category: attrs.category || 'uncategorized',
-          imageUrl,
-        };
-      });
+          return {
+            id: item.id,
+            name: attrs.title,
+            slug: attrs.slug,
+            price: attrs.price,
+            category: attrs.category || 'uncategorized',
+            imageUrl,
+          };
+        });
 
-      setProducts(mappedProducts);
+        setProducts(mappedProducts);
+        setError(null);
+      } catch (err: any) {
+        setError(err.message || 'An unknown error occurred');
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchProducts();
@@ -95,12 +105,18 @@ export default function FilterableProductGrid() {
         </select>
       </div>
 
+      {/* Loading and error states */}
+      {loading && <p className="text-center">Loading products...</p>}
+      {error && <p className="text-center text-red-500">{error}</p>}
+
       {/* Product grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {!loading && !error && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filtered.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      )}
     </>
   );
 }
