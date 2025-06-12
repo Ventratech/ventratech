@@ -22,7 +22,7 @@
  * @returns {Promise<Product[]>}
  */
 export async function getProducts() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_API}/api/products?populate=image`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?populate=image`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch products");

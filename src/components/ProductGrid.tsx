@@ -31,7 +31,7 @@ type StrapiResponse = {
 
 // ✅ Corrected Strapi Cloud URL logic
 const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL || 'https://striking-power-0810802d17.strapiapp.com';
+  process.env.NEXT_PUBLIC_STRAPI_URL || 'https://trusty-chicken-b252799906.strapiapp.com';
 
 async function getProducts(): Promise<Product[]> {
   try {
