@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Orbitron } from "next/font/google";
+import { Inter, Roboto_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  variable: "--font-roboto-mono",
+});
 
 const orbitron = Orbitron({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-orbitron",
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -38,7 +37,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} font-sans bg-[#0b1120] text-white antialiased`}
+        className={`${inter.variable} ${robotoMono.variable} ${orbitron.variable} font-sans bg-[#0b1120] text-white antialiased`}
       >
         {children}
       </body>
