@@ -1,44 +1,32 @@
-import type { Metadata } from "next";
-import { Inter, Roboto_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
+import { Inter, Roboto_Mono } from "next/font/google";
+
 
 const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
+  display: "swap",
 });
 
 const robotoMono = Roboto_Mono({
   subsets: ["latin"],
-  variable: "--font-roboto-mono",
+  variable: "--font-mono",
+  display: "swap",
 });
 
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-orbitron",
-});
-
-export const metadata: Metadata = {
-  title: "Ventratech Builds",
-  description: "Custom PC builds with performance and care",
+export const metadata = {
+  title: "Ventratech",
+  description: "Custom PCs built with power and precision.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#0066FF" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
-      </head>
-      <body
-        className={`${inter.variable} ${robotoMono.variable} ${orbitron.variable} font-sans bg-[#0b1120] text-white antialiased`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn("min-h-screen bg-background font-sans antialiased", inter.variable, robotoMono.variable)}>
         {children}
       </body>
     </html>
