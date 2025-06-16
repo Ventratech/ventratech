@@ -6,7 +6,7 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'https://trusty-chicken
 
 type ProductFromStrapi = {
   id: number;
-  attributes: {
+  attributes?: {
     title?: string;
     slug?: string;
     price?: number;
@@ -22,7 +22,6 @@ type ProductFromStrapi = {
 };
 
 async function getProducts(): Promise<Product[]> {
-  // Fetch from Strapi API with image population
   const res = await fetch(`${STRAPI_URL}/api/products?populate=image`);
 
   if (!res.ok) {
@@ -33,7 +32,8 @@ async function getProducts(): Promise<Product[]> {
   const json = await res.json();
 
   return json.data.map((item: ProductFromStrapi) => {
-    const attrs = item.attributes;
+    const attrs = item.attributes || {};  // safeguard here
+
     return {
       id: item.id,
       name: attrs.title || 'Untitled',
