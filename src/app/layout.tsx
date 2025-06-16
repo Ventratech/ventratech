@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Inter, Roboto_Mono } from "next/font/google";
+import { cn } from "@/lib/utils";
 
 
 const inter = Inter({
