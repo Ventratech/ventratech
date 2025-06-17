@@ -19,7 +19,7 @@ export default function Navbar() {
         <Link href="/" className="hover:text-primary transition">Home</Link>
         <Link href="/shop" className="hover:text-primary transition">Shop</Link>
         <Link href="/contact" className="hover:text-primary transition">Contact</Link>
-        <Link href="/quote" className="hover:text-cyan-400 transition">Instant Quote</Link>
+        <Link href="/quote" className="hover:text-cyan-400 transition">Ventrabot</Link>
       </div>
     </nav>
   )
