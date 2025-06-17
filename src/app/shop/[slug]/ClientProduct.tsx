@@ -1,52 +1,47 @@
-'use client'
+'use client';
 
-import Image from 'next/image'
-import { useCart } from '@/context/CartContext'
-
-type Product = {
-  id: number
-  name: string
-  price: string
-  imageUrl: string
-  description: string
-}
+import { useCart } from '@/context/CartContext';
+import { Product } from '@/modules/types';
+import Image from 'next/image';
 
 export default function ClientProduct({ product }: { product: Product }) {
-  const { addToCart } = useCart()
+	const { addToCart } = useCart();
 
-  const handleAddToCart = () => {
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      imageUrl: product.imageUrl,
-    })
-  }
+	const handleAddToCart = () => {
+		addToCart({
+			id: product.id,
+			name: product.name,
+			price: product.price,
+			imageUrl: product.imageUrl,
+		});
+	};
 
-  return (
-    <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-      {/* ✅ Correct Image layout using `fill` and Tailwind */}
-      <div className="relative w-full h-80 md:h-[400px] rounded-lg overflow-hidden">
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          fill
-          className="object-cover rounded-lg"
-          priority
-        />
-      </div>
+	return (
+		<div className='grid items-start max-w-4xl grid-cols-1 gap-10 mx-auto md:grid-cols-2'>
+			{/* ✅ Correct Image layout using `fill` and Tailwind */}
+			<div className='relative w-full h-80 md:h-[400px] rounded-lg overflow-hidden'>
+				<Image
+					src={product.imageUrl}
+					alt={product.name}
+					fill
+					className='object-cover rounded-lg'
+					priority
+				/>
+			</div>
 
-      <div>
-        <h1 className="text-3xl font-bold text-dark mb-2">{product.name}</h1>
-        <p className="text-primary text-xl font-semibold mb-4">{product.price}</p>
-        <p className="text-gray-700 mb-6">{product.description}</p>
-        <button
-          onClick={handleAddToCart}
-          className="bg-dark text-white hover:bg-primary transition px-6 py-3 rounded-xl"
-        >
-          Add to Cart
-        </button>
-      </div>
-    </div>
-  )
+			<div>
+				<h1 className='mb-2 text-3xl font-bold text-dark'>{product.name}</h1>
+				<p className='mb-4 text-xl font-semibold text-primary'>
+					{product.price}
+				</p>
+				<p className='mb-6 text-gray-700'>{product.description}</p>
+				<button
+					onClick={handleAddToCart}
+					className='px-6 py-3 text-white transition bg-dark hover:bg-primary rounded-xl'
+				>
+					Add to Cart
+				</button>
+			</div>
+		</div>
+	);
 }
