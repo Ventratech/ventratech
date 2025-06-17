@@ -51,7 +51,7 @@ export default function FilterableProductGrid() {
 
 	useEffect(() => {
 		fetchProducts();
-	}, [productGrid.products]);
+	});
 
 	const filtered =
 		productGrid.category === 'all'
