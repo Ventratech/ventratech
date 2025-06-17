@@ -22,6 +22,7 @@ export function slugify(text: string): string {
 		.replace(/^-+|-+$/g, ''); // Remove starting/ending dashes
 }
 
+// Utility to round prices for markup
 export function applyMarkup(base: number, markup = 0.15): number {
 	return Math.round(base * (1 + markup));
 }

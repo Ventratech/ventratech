@@ -1,5 +1,6 @@
 // components/ProductGrid.tsx
 import { getProducts } from '@/lib/functions';
+import { dummyData } from '@/lib/data';
 import ProductCard from './ProductCard';
 
 export default async function ProductGrid() {
@@ -10,10 +11,12 @@ export default async function ProductGrid() {
 	}
 
 	return (
-		<section className='px-6 py-16'>
-			<h2 className='mb-10 text-3xl font-bold text-center'>Featured Builds</h2>
-			<div className='grid max-w-6xl grid-cols-1 gap-8 mx-auto sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-				{products.map((product) => (
+		<section className='max-width'>
+			<h2 className='mt-10 mb-5 text-3xl font-bold text-center'>
+				Featured Builds
+			</h2>
+			<div className='flex flex-wrap items-start justify-center xl:justify-start'>
+				{dummyData.map((product) => (
 					<ProductCard key={product.id} product={product} />
 				))}
 			</div>

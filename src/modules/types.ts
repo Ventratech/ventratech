@@ -8,7 +8,7 @@ export interface Product {
 	name: string;
 	slug?: string;
 	description?: string;
-	price: number; // keep price as number for flexibility
+	price: string; // keep price as number for flexibility
 	imageUrl: string;
 	category?: string;
 }

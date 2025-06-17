@@ -1,7 +1,7 @@
 'use client';
 
 import { Product, ProductGridStates, StrapiProduct } from '@/modules/types';
-import ProductCard from '@/components/ProductCard';
+import ProductCard from '../Home/components/ProductCard';
 import { categories } from '@/lib/constants';
 import { useEffect, useState } from 'react';
 
@@ -34,7 +34,7 @@ export default function FilterableProductGrid() {
 					id: item.id,
 					name: attrs.title,
 					slug: attrs.slug,
-					price: attrs.price,
+					price: attrs.price.toString(),
 					category: attrs.category || 'uncategorized',
 					imageUrl,
 				};

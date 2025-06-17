@@ -8,23 +8,19 @@ import Link from 'next/link';
 export default function ProductCard({ product }: { product: Product }) {
 	return (
 		<Link href={`/shop/${product.slug}`}>
-			<div className='overflow-hidden transition bg-white shadow-md rounded-2xl hover:shadow-lg'>
+			<div className='p-5 m-3 max-w-[300px] flex items-center justify-center flex-col transition  shadow-md rounded-2xl hover:shadow-xl'>
 				{product.imageUrl && (
 					<Image
 						src={product.imageUrl}
 						alt={product.name}
 						width={400}
 						height={300}
-						className='object-cover w-full h-64'
+						className='max-w-[270px]'
 					/>
 				)}
-				<div className='p-4'>
-					<h2 className='text-xl font-semibold text-gray-800'>
-						{product.name}
-					</h2>
-					<p className='text-lg font-bold text-blue-600'>
-						R {product.price.toLocaleString('en-ZA')}
-					</p>
+				<div className='flex flex-col items-start justify-between h-full'>
+					<p className='text-lg font-semibold text-gray-800'>{product.name}</p>
+					<p className='text-lg font-bold text-blue-600'>R {product.price}</p>
 				</div>
 			</div>
 		</Link>
