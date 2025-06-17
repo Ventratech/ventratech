@@ -1,7 +1,7 @@
 // components/ProductCard.tsx
 'use client';
 
-import { Product } from '../modules/types'; // ✅ shared type
+import { Product } from '@/modules/types';
 import Image from 'next/image';
 import Link from 'next/link';
 
