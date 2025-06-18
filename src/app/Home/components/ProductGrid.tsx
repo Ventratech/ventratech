@@ -15,7 +15,7 @@ export default async function ProductGrid() {
 			<h2 className='mt-10 mb-5 text-3xl font-bold text-center'>
 				Featured Builds
 			</h2>
-			<div className='flex flex-wrap items-start justify-center xl:justify-start'>
+			<div className='flex flex-wrap items-start justify-center 2xl:justify-start'>
 				{dummyData.map((product) => (
 					<ProductCard key={product.id} product={product} />
 				))}

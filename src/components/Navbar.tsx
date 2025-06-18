@@ -54,7 +54,7 @@ export default function Navbar() {
 							Contact
 						</Link>
 						<Link href='/quote' className='mt-5 transition hover:text-cyan-400'>
-							Instant Quote
+							Ventrabot
 						</Link>
 					</div>
 				</div>
@@ -69,7 +69,7 @@ export default function Navbar() {
 						Contact
 					</Link>
 					<Link href='/quote' className='transition hover:text-cyan-400'>
-						Instant Quote
+						Ventrabot
 					</Link>
 				</div>
 			</div>
