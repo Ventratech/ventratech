@@ -4,11 +4,11 @@ import { dummyData } from '@/lib/data';
 import ProductCard from './ProductCard';
 
 export default async function ProductGrid() {
-	const products = await getProducts();
+	// const products = await getProducts();
 
-	if (products.length === 0) {
-		return <p className='text-center text-gray-500'>No products available.</p>;
-	}
+	// if (products.length === 0) {
+	// 	return <p className='text-center text-gray-500'>No products available.</p>;
+	// }
 
 	return (
 		<section className='max-width'>
