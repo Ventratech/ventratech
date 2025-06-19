@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ShopPage({ params }: Props) {
 	return (
 		<main className='p-4'>
-			<p>product</p>
+			<p>product</p> <p>{params.slug}</p>
 		</main>
 	);
 }

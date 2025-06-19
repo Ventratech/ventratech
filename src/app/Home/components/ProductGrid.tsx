@@ -1,5 +1,4 @@
 // components/ProductGrid.tsx
-import { getProducts } from '@/lib/functions';
 import { dummyData } from '@/lib/data';
 import ProductCard from './ProductCard';
 
