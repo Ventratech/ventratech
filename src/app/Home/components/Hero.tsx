@@ -1,5 +1,6 @@
 'use client';
 
+import Button from '@/stories/Button';
 import Link from 'next/link';
 
 export default function Hero() {
@@ -15,9 +16,7 @@ export default function Hero() {
 					between.
 				</p>
 				<Link href='/shop' aria-label='Shop for custom PCs'>
-					<button className='px-6 py-3 font-medium text-white transition shadow bg-primary hover:bg-blue-700 rounded-2xl'>
-						Shop Now
-					</button>
+					<Button title='Shop now' />
 				</Link>
 			</div>
 		</div>

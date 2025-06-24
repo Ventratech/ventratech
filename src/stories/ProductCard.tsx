@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 export default function ProductCard({ product }: { product: Product }) {
 	return (
-		<Link href={`/shop/${product.slug}`}>
+		<Link href={`/shop/`}>
 			<div className='p-5 m-3 max-w-[300px] flex items-center justify-center flex-col transition  shadow-md rounded-2xl hover:shadow-xl'>
 				{product.imageUrl && (
 					<Image

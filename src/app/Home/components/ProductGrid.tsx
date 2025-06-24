@@ -1,6 +1,6 @@
 // components/ProductGrid.tsx
+import ProductCard from '../../../stories/ProductCard';
 import { dummyData } from '@/lib/data';
-import ProductCard from './ProductCard';
 
 export default async function ProductGrid() {
 	// const products = await getProducts();
