@@ -1,5 +1,4 @@
 import ProductGrid from '../Home/components/ProductGrid';
-import Filters from './components/filters';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
