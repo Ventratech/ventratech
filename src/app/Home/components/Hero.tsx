@@ -2,19 +2,8 @@
 
 import Button from '@/stories/Button';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 
 export default function Hero() {
-	const [products, setProducts] = useState([]);
-
-	useEffect(() => {
-		fetch('http://localhost:5000/products')
-			.then((res) => res.json())
-			.then((data) => setProducts(data))
-			.catch((err) => console.error('Error fetching products:', err));
-	}, []);
-
-	console.log(products);
 	return (
 		<div className='bg-light'>
 			<div className='py-10 text-center md:py-20 max-width text-dark'>

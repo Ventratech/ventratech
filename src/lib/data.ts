@@ -1,6 +1,6 @@
-import { Product } from '@/modules/types';
+import { DummyProduct } from '@/modules/product';
 
-export const dummyData: Product[] = [
+export const dummyData: DummyProduct[] = [
 	{
 		id: 0,
 		imageUrl: '/images/products/dummy1.webp',

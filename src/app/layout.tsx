@@ -1,6 +1,9 @@
-import './globals.css';
 import { Inter, Roboto_Mono } from 'next/font/google';
+import Footer from '@/stories/Footer';
+import Navbar from '@/stories/Navbar';
 import { cn } from '@/lib/utils';
+import { Metadata } from 'next';
+import './globals.css';
 
 const inter = Inter({
 	subsets: ['latin'],
@@ -14,7 +17,7 @@ const robotoMono = Roboto_Mono({
 	display: 'swap',
 });
 
-export const metadata = {
+export const metadata: Metadata = {
 	title: 'Ventratech',
 	description: 'Custom PCs built with power and precision.',
 };
@@ -33,7 +36,10 @@ export default function RootLayout({
 					robotoMono.variable
 				)}
 			>
+				<Navbar />
+
 				{children}
+				<Footer />
 			</body>
 		</html>
 	);
