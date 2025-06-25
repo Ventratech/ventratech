@@ -1,15 +1,15 @@
-import Navbar from '@/components/Navbar';
-import FilterableProductGrid from './FilterableProductGrid';
-import Footer from '@/components/Footer';
+import ProductGrid from '../Home/components/ProductGrid';
+import { Metadata } from 'next';
 
-export default function ShopPage() {
+export const metadata: Metadata = {
+	title: 'Ventratech | Shop',
+	description: 'Custom PCs built with power and precision.',
+};
+
+export default async function ShopPage() {
 	return (
-		<>
-			<Navbar />
-			<main className='p-6'>
-				<FilterableProductGrid />
-			</main>
-			<Footer />
-		</>
+		<main className='mt-[100px]'>
+			<ProductGrid />
+		</main>
 	);
 }

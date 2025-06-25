@@ -1,0 +1,12 @@
+<svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="150" cy="150" r="146.5" stroke="#132735" stroke-width="7"/>
+<path d="M174 274L212 195" stroke="#132735" stroke-width="14"/>
+<path d="M217 167C225.284 167 232 173.716 232 182C232 190.284 225.284 197 217 197C208.716 197 202 190.284 202 182C202 173.716 208.716 167 217 167Z" stroke="#132735" stroke-width="10"/>
+<circle cx="191" cy="102" r="15" stroke="#132735" stroke-width="10"/>
+<path d="M139 224L186 116" stroke="#132735" stroke-width="14"/>
+<path d="M62 104.549C65.1371 110.183 142.082 206.871 180.163 254.511" stroke="#132735" stroke-width="21" stroke-linejoin="round"/>
+<path d="M226 167L250 116" stroke="#132735" stroke-width="14"/>
+<circle cx="255" cy="102" r="15" stroke="#132735" stroke-width="10"/>
+<path d="M39.4646 105.287C42.9569 111.559 128.613 219.194 171.005 272.227" stroke="#132735" stroke-width="21" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M71.1321 109.871C75.2742 109.87 78.6319 106.512 78.6316 102.37C78.6313 98.2279 75.2732 94.8703 71.1311 94.8706L71.1321 109.871ZM71.1316 102.371L71.1311 94.8706L39.9993 94.8727L39.9998 102.373L40.0003 109.873L71.1321 109.871L71.1316 102.371Z" fill="#132735"/>
+</svg>
