@@ -5,11 +5,10 @@ export default function Footer() {
 	return (
 		<footer className='py-10 mt-10 bg-dark'>
 			<div className='flex flex-col justify-center gap-6 text-white md:justify-between max-width md:flex-row'>
-				{/* Logo + Info */}
 				<div className='flex flex-col items-center justify-center md:items-start'>
 					<Link href='/'>
 						<Image
-							src='/images/logo.png'
+							src='/images/logos/full_light_logo.svg'
 							alt='Ventratech Logo'
 							width={140}
 							height={40}

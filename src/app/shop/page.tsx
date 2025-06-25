@@ -1,3 +1,6 @@
+import ProductGrid from '../Home/components/ProductGrid';
+import { getProducts } from '@/lib/functions';
+import Filters from './components/filters';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -5,6 +8,11 @@ export const metadata: Metadata = {
 	description: 'Custom PCs built with power and precision.',
 };
 
-export default function ShopPage() {
-	return <main>shop</main>;
+export default async function ShopPage() {
+	return (
+		<main className='mt-[100px]'>
+			<Filters />
+			<ProductGrid />
+		</main>
+	);
 }

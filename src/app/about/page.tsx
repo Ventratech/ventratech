@@ -1,5 +1,5 @@
+import About from './components/About';
 import React from 'react';
-import About from './components/about';
 
 export default function page() {
 	return (

@@ -1,25 +1,105 @@
-import { ClipLoader } from 'react-spinners';
+'use client';
+
 import ProductCard from '../../../stories/ProductCard';
+import { getProducts } from '@/lib/functions';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { ClipLoader } from 'react-spinners';
 import { Product } from '@/modules/product';
-import { Suspense } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ProductGridStates } from '@/modules/states';
 
-interface Props {
-	products: Product[];
-}
+const ITEMS_PER_PAGE = 20;
 
-export default async function ProductGrid({ products }: Props) {
+export default function ProductGrid() {
+	const [state, setState] = useState<ProductGridStates>({
+		products: [],
+		page: 1,
+		hasMore: true,
+		loading: true,
+	});
+
+	const path = usePathname();
+	const isHomePage = path === '/';
+
+	const fetchInitialProducts = async () => {
+		try {
+			const data = await getProducts(1, ITEMS_PER_PAGE);
+
+			setState((prev) => ({
+				...prev,
+				products: data,
+				hasMore: isHomePage ? false : true,
+				page: isHomePage ? 1 : 2,
+			}));
+		} catch (error) {
+			console.error('Failed to fetch products:', error);
+			setState((prev) => ({ ...prev, hasMore: false }));
+		} finally {
+			setState((prev) => ({ ...prev, loading: false }));
+		}
+	};
+
+	const fetchMoreProducts = async () => {
+		try {
+			const data = await getProducts(state.page, ITEMS_PER_PAGE);
+
+			if (!Array.isArray(data) || data.length === 0) {
+				setState((prev) => ({ ...prev, hasMore: false }));
+				return;
+			}
+
+			setState((prev) => ({
+				...prev,
+				products: [...prev.products, ...data],
+				page: prev.page + 1,
+			}));
+		} catch (error) {
+			console.error('Failed to fetch more products:', error);
+			setState((prev) => ({ ...prev, hasMore: false }));
+		}
+	};
+
+	useEffect(() => {
+		fetchInitialProducts();
+	}, []);
+
+	const { products, hasMore, loading } = state;
+
+	if (loading) {
+		return (
+			<section className='py-10 text-center max-width'>
+				<ClipLoader color='#061728' size={60} />
+			</section>
+		);
+	}
+
 	return (
 		<section className='max-width'>
-			<h2 className='mt-10 mb-5 text-3xl font-bold text-center'>
-				Featured Builds
-			</h2>
-			<div className='flex flex-wrap items-start justify-center 2xl:justify-start'>
-				{products.slice(0, 20).map((item, index) => (
-					<Suspense key={index} fallback={<ClipLoader size={50} />}>
+			{isHomePage ? (
+				<div className='flex flex-wrap items-center justify-center sm:justify-between 2xl:justify-start'>
+					{products.map((item, index) => (
 						<ProductCard key={index} product={item} />
-					</Suspense>
-				))}
-			</div>
+					))}
+				</div>
+			) : (
+				<InfiniteScroll
+					dataLength={products.length}
+					next={fetchMoreProducts}
+					hasMore={hasMore}
+					loader={
+						<div className='py-4 text-center'>
+							<ClipLoader color='#061728' size={40} />
+						</div>
+					}
+				>
+					<div className='flex flex-wrap items-center justify-center sm:justify-between 2xl:justify-start'>
+						{products.map((item, index) => (
+							<ProductCard key={index} product={item} />
+						))}
+					</div>
+				</InfiniteScroll>
+			)}
 		</section>
 	);
 }

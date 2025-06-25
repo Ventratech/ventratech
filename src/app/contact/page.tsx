@@ -1,36 +1,29 @@
-'use client';
-
-import Navbar from '@/stories/Navbar';
+import ContactForm from './components/ContactForm';
 import Footer from '@/stories/Footer';
-import ContactForm from './ContactForm';
 
 export default function ContactPage() {
 	return (
-		<>
-			<Navbar />
-
+		<main className='mt-[100px]'>
 			{/* Banner */}
-			<section className='bg-white text-[#06182F] py-12 text-center'>
-				<div className='max-w-3xl mx-auto px-4'>
-					<h3 className='text-2xl font-bold mb-1'>Contact Us</h3>
-					<p className='text-lg max-w-xl mx-auto'>
+			<div className='bg-white text-[#06182F] py-12 text-center'>
+				<div className='max-w-3xl px-4 mx-auto'>
+					<h3 className='mb-1 text-2xl font-bold'>Contact Us</h3>
+					<p className='max-w-xl mx-auto text-lg'>
 						Have a question, request, or custom build in mind? We&apos;re here
 						to help.
 					</p>
 				</div>
-			</section>
+			</div>
 
 			{/* Contact Form Section */}
-			<section className='bg-[#F4F6F8] py-20 px-4'>
-				<div className='max-w-3xl mx-auto bg-white shadow-lg rounded-2xl p-8'>
-					<h2 className='text-2xl font-bold mb-8 text-center'>
+			<div className='bg-[#F4F6F8] py-20 px-4'>
+				<div className='max-w-3xl p-8 mx-auto bg-white shadow-lg rounded-2xl'>
+					<h2 className='mb-8 text-2xl font-bold text-center'>
 						Send Us a Message
 					</h2>
 					<ContactForm />
 				</div>
-			</section>
-
-			<Footer />
-		</>
+			</div>
+		</main>
 	);
 }
