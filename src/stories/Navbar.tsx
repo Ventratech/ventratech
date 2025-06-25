@@ -2,7 +2,7 @@
 
 import { Twirl as Hamburger } from 'hamburger-react';
 import { NavStates } from '@/modules/states';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -12,13 +12,13 @@ export default function Navbar() {
 		isScrolled: false,
 	});
 
-	const handleScroll = () => {
+	const handleScroll = useCallback(() => {
 		if (window.scrollY > 100) {
-			setStates({ ...states, isScrolled: true });
+			setStates((prev) => ({ ...prev, isScrolled: true }));
 		} else {
-			setStates({ ...states, isScrolled: false });
+			setStates((prev) => ({ ...prev, isScrolled: false }));
 		}
-	};
+	}, []);
 
 	useEffect(() => {
 		window.addEventListener('scroll', handleScroll);
@@ -26,7 +26,7 @@ export default function Navbar() {
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
-	}, [states.isScrolled]);
+	}, [states.isScrolled, handleScroll]);
 
 	return (
 		<nav className='fixed top-0 left-0 right-0 w-full bg-dark'>

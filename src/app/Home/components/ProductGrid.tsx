@@ -1,13 +1,12 @@
 'use client';
 
+import InfiniteScroll from 'react-infinite-scroll-component';
 import ProductCard from '../../../stories/ProductCard';
+import { ProductGridStates } from '@/modules/states';
 import { getProducts } from '@/lib/functions';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
-import { Product } from '@/modules/product';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import { ProductGridStates } from '@/modules/states';
 
 const ITEMS_PER_PAGE = 20;
 
@@ -21,24 +20,6 @@ export default function ProductGrid() {
 
 	const path = usePathname();
 	const isHomePage = path === '/';
-
-	const fetchInitialProducts = async () => {
-		try {
-			const data = await getProducts(1, ITEMS_PER_PAGE);
-
-			setState((prev) => ({
-				...prev,
-				products: data,
-				hasMore: isHomePage ? false : true,
-				page: isHomePage ? 1 : 2,
-			}));
-		} catch (error) {
-			console.error('Failed to fetch products:', error);
-			setState((prev) => ({ ...prev, hasMore: false }));
-		} finally {
-			setState((prev) => ({ ...prev, loading: false }));
-		}
-	};
 
 	const fetchMoreProducts = async () => {
 		try {
@@ -61,8 +42,25 @@ export default function ProductGrid() {
 	};
 
 	useEffect(() => {
+		const fetchInitialProducts = async () => {
+			try {
+				const data = await getProducts(1, ITEMS_PER_PAGE);
+
+				setState((prev) => ({
+					...prev,
+					products: data,
+					hasMore: isHomePage ? false : true,
+					page: isHomePage ? 1 : 2,
+				}));
+			} catch (error) {
+				console.error('Failed to fetch products:', error);
+				setState((prev) => ({ ...prev, hasMore: false }));
+			} finally {
+				setState((prev) => ({ ...prev, loading: false }));
+			}
+		};
 		fetchInitialProducts();
-	}, []);
+	}, [isHomePage]);
 
 	const { products, hasMore, loading } = state;
 

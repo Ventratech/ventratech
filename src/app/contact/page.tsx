@@ -1,5 +1,4 @@
 import ContactForm from './components/ContactForm';
-import Footer from '@/stories/Footer';
 
 export default function ContactPage() {
 	return (

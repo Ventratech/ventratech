@@ -1,5 +1,4 @@
 import ProductGrid from '../Home/components/ProductGrid';
-import { getProducts } from '@/lib/functions';
 import Filters from './components/filters';
 import { Metadata } from 'next';
 
