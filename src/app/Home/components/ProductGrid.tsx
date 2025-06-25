@@ -75,28 +75,33 @@ export default function ProductGrid() {
 	return (
 		<section className='max-width'>
 			{isHomePage ? (
-				<div className='flex flex-wrap items-center justify-center sm:justify-between 2xl:justify-start'>
+				<div className='flex flex-wrap items-center justify-center w-full sm:justify-between'>
 					{products.map((item, index) => (
 						<ProductCard key={index} product={item} />
 					))}
 				</div>
 			) : (
-				<InfiniteScroll
-					dataLength={products.length}
-					next={fetchMoreProducts}
-					hasMore={hasMore}
-					loader={
-						<div className='py-4 text-center'>
-							<ClipLoader color='#061728' size={40} />
-						</div>
-					}
-				>
-					<div className='flex flex-wrap items-center justify-center sm:justify-between 2xl:justify-start'>
-						{products.map((item, index) => (
-							<ProductCard key={index} product={item} />
-						))}
+				<div>
+					<div>
+						<p>awe</p>
 					</div>
-				</InfiniteScroll>
+					<InfiniteScroll
+						dataLength={products.length}
+						next={fetchMoreProducts}
+						hasMore={hasMore}
+						loader={
+							<div className='py-4 text-center'>
+								<ClipLoader color='#061728' size={40} />
+							</div>
+						}
+					>
+						<div className='flex flex-wrap items-center justify-center sm:justify-between'>
+							{products.map((item, index) => (
+								<ProductCard key={index} product={item} />
+							))}
+						</div>
+					</InfiniteScroll>
+				</div>
 			)}
 		</section>
 	);

@@ -46,6 +46,7 @@ export default function Navbar() {
 				</Link>
 				<div className='block md:hidden'>
 					<Hamburger
+						size={25}
 						toggled={states.isNavOpen}
 						toggle={() =>
 							setStates({ ...states, isNavOpen: !states.isNavOpen })
@@ -59,10 +60,10 @@ export default function Navbar() {
 				>
 					<Link href='/' className='flex items-center space-x-2'>
 						<Image
-							src='/images/logo.png'
+							src='/images/logos/full_light_logo.svg'
 							alt='Ventratech logo'
 							width={200}
-							height={80}
+							height={230}
 							priority
 						/>
 					</Link>

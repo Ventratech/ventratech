@@ -11,21 +11,21 @@ interface Props {
 export default function ProductCard({ product }: Props) {
 	return (
 		<Link href={`/shop/`}>
-			<div className='p-2 md:p-5 m-1 md:m-3 w-[170px] md:max-w-[300px] md:w-full flex items-center justify-center flex-col transition shadow-md rounded-2xl hover:shadow-xl'>
+			<div className='p-2 md:p-5 m-1 md:m-3 w-[150px] md:max-w-[250px] md:w-full flex flex-col items-center justify-start rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 bg-white'>
 				{product.image_link && (
 					<Image
 						src={product.image_link}
 						alt={product.title}
 						width={400}
 						height={300}
-						className='max-w-[270px] w-full'
+						className='object-cover w-full rounded-xl'
 					/>
 				)}
-				<div className='flex flex-col items-start justify-between h-full'>
-					<p className='text-lg font-semibold text-gray-800 truncate max-w-[100px] md:max-w-[250px]'>
+				<div className='flex flex-col items-start justify-between w-full h-full mt-4'>
+					<p className='text-sm font-semibold text-gray-800 line-clamp-2'>
 						{product.description}
 					</p>
-					<p className='text-lg font-bold text-blue-600'>
+					<p className='mt-5 text-base font-bold text-blue-600'>
 						R {product.selling_price_inc_vat}
 					</p>
 				</div>

@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 export default async function ShopPage() {
 	return (
 		<main className='mt-[100px]'>
-			<Filters />
 			<ProductGrid />
 		</main>
 	);
