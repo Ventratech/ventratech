@@ -1,85 +1,29 @@
-import { Product, ProductFromStrapi } from '@/modules/types';
-import { STRAPI_URL } from './constants';
+// lib/functions.ts
 
-export async function getProduct(slug: string) {
-	try {
-		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_STRAPI_URL}/api/products?filters[slug][$eq]=${slug}&populate=*`
-		);
+import { Product } from '@/modules/product';
 
-		if (!res.ok) throw new Error(`Failed to fetch product: ${res.status}`);
+let allProductsCache: Product[] = [];
 
-		const json = await res.json();
-		const rawProduct = json.data?.[0];
+export async function getProducts(
+	page = 1,
+	limit = 20
+): Promise<{ products: Product[]; error: unknown }> {
+	let error: unknown = null;
 
-		if (!rawProduct || !rawProduct.attributes) {
-			console.warn('Product not found or malformed response');
-			return null;
+	if (allProductsCache.length === 0) {
+		try {
+			const res = await fetch('http://localhost:5000/products');
+			const data = await res.json();
+			allProductsCache = Array.isArray(data) ? data : [];
+		} catch (err) {
+			error = err;
+			allProductsCache = [];
 		}
-
-		const { title, price, slug: productSlug, image } = rawProduct.attributes;
-
-		return {
-			id: rawProduct.id,
-			name: title ?? 'Untitled',
-			price: price ?? 0,
-			slug: productSlug ?? slug,
-			imageUrl: image?.data?.attributes?.url
-				? `${process.env.NEXT_PUBLIC_STRAPI_API_URL}${image.data.attributes.url}`
-				: '/placeholder.jpg',
-		};
-	} catch (error) {
-		console.error('Error fetching product:', error);
-		return null;
-	}
-}
-
-export async function getProducts(): Promise<Product[]> {
-	const res = await fetch(`${STRAPI_URL}/api/products?populate=image`);
-
-	if (!res.ok) {
-		console.error('Failed to fetch products:', res.statusText);
-		return [];
 	}
 
-	const json = await res.json();
+	const start = (page - 1) * limit;
+	const end = page * limit;
+	const paginated = allProductsCache.slice(start, end);
 
-	return json.data.map((item: ProductFromStrapi) => {
-		const attrs = item.attributes || {}; // safeguard here
-
-		return {
-			id: item.id,
-			name: attrs.title || 'Untitled',
-			slug: attrs.slug || `product-${item.id}`,
-			price: attrs.price || 0,
-			category: attrs.category || 'uncategorized',
-			imageUrl: attrs.image?.data?.attributes?.url
-				? `${STRAPI_URL}${attrs.image.data.attributes.url}`
-				: '/images/default.jpg',
-		};
-	});
-}
-
-export async function buildQuote(budget: number, useCase: string) {
-	try {
-		const res = await fetch(
-			`${process.env.NEXT_PUBLIC_STRAPI_URL}/quote?useCase=${useCase}`
-		);
-		if (!res.ok) {
-			throw new Error(`API error: ${res.status}`);
-		}
-
-		const data = await res.json();
-
-		return {
-			components: data.components,
-			total: data.total,
-		};
-	} catch (error) {
-		console.error('Failed to fetch quote:', error);
-		return {
-			components: [],
-			total: 0,
-		};
-	}
+	return { products: paginated, error };
 }
