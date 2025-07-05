@@ -1,16 +1,17 @@
 'use client';
 
-import Button from '@/stories/Button';
+import { QuoteStates } from '@/modules/states';
 import { useEffect, useState } from 'react';
+import Button from '@/stories/Button';
 
 export default function QuotePage() {
 	const [accessGranted, setAccessGranted] = useState(false);
 	const [inputPassword, setInputPassword] = useState('');
 	const [errorMessage, setErrorMessage] = useState('');
-	const [quote, setQuote] = useState<any>({
+	const [quote, setQuote] = useState<QuoteStates>({
 		budget: 0,
 		useCase: 'gaming',
-		result: null,
+		result: [],
 		loading: false,
 	});
 
@@ -130,9 +131,7 @@ export default function QuotePage() {
 								<ul className='ml-5 list-disc'>
 									<li>64GB DDR5 RAM – R850</li>
 								</ul>
-								<p className='mt-4 font-semibold'>
-									Total: R{quote.result.total}
-								</p>
+								<p className='mt-4 font-semibold'>Total: R{quote.result}</p>
 							</div>
 						)}
 					</form>

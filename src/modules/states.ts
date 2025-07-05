@@ -12,3 +12,10 @@ export type ProductGridStates = {
 	loading: boolean;
 	error?: unknown;
 };
+
+export type QuoteStates = {
+	budget: number;
+	useCase: string;
+	result: [];
+	loading: boolean;
+};
