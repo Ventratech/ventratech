@@ -5,9 +5,10 @@ export interface NavStates {
 	isNavOpen: boolean;
 }
 
-export interface ProductGridStates {
+export type ProductGridStates = {
 	products: Product[];
 	page: number;
 	hasMore: boolean;
 	loading: boolean;
-}
+	error?: unknown;
+};

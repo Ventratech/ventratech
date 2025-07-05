@@ -29,7 +29,7 @@ export default function Navbar() {
 	}, [states.isScrolled, handleScroll]);
 
 	return (
-		<nav className='fixed top-0 left-0 right-0 w-full bg-dark'>
+		<nav className='fixed top-0 left-0 right-0 z-50 w-full bg-dark'>
 			<div
 				className={`flex items-center justify-between transition-all duration-300 ease-linear ${
 					states.isScrolled ? 'py-2' : 'py-7'
